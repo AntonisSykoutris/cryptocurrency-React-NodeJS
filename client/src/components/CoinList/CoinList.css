@@ -1,0 +1,50 @@
+.table {
+  margin: 2rem;
+  border-collapse: collapse;
+  max-width: 100%;
+  font-size: 2rem;
+  font-weight: 'bold';
+  box-shadow: 0rem 0.4rem 0.8rem rgba(0, 0, 0, 0.2);
+}
+
+.table td {
+  border: 0.1rem solid #000;
+  padding: 0.8rem;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.6rem;
+}
+
+.pageNumber {
+  margin: 0 0.8rem;
+  font-size: 1.6rem;
+  color: #000;
+  background-color: #ddd;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+
+.pageNumber:hover {
+  background-color: #9acced;
+}
+
+.ellipsis {
+  font-size: 1.6rem;
+  font-weight: 'bold';
+  color: #000;
+  padding: 0.8rem 1.6rem;
+}
+
+.activePage {
+  color: #fff;
+  background-color: #000;
+}

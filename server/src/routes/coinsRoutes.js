@@ -1,17 +1,15 @@
 const express = require('express');
 const axios = require('axios');
-// const dotenv = require('dotenv');
-// dotenv.config();
 
 const router = express.Router();
 
 router.get('/markets', async (req, res) => {
   const page = parseInt(req.query.page) || 1;
-  const perPage = parseInt(req.query.perPage) || 5;
+  const perPage = parseInt(req.query.perPage) || 15;
   const skip = (page - 1) * perPage;
-  // const { data } = await axios.get(
-  //   `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=${perPage}&page=${page}`
-  // );
+  const { data } = await axios.get(
+    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=${perPage}&page=${page}`
+  );
 
   const dummyData = [
     {
@@ -134,7 +132,7 @@ router.get('/markets', async (req, res) => {
     // Add more objects here for additional coins
   ];
 
-  const coins = dummyData.map(coin => ({
+  const coins = data.map(coin => ({
     id: coin.id,
     name: coin.name,
     symbol: coin.symbol,
@@ -143,7 +141,11 @@ router.get('/markets', async (req, res) => {
     low24h: coin.low_24h,
     priceChangePercentage24h: coin.price_change_percentage_24h,
   }));
-  res.json(coins);
+
+  const totalCoins = 100; // The total number of coins returned by the API
+  const totalPages = Math.ceil(totalCoins / perPage); // Calculate the total number of pages
+
+  res.json({ coins, totalPages });
 });
 
 module.exports = router;

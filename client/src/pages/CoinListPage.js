@@ -1,5 +1,5 @@
 import React from 'react';
-import CoinList from '../components/CoinList';
+import CoinList from '../components/CoinList/CoinList';
 
 const CoinListPage = () => {
   return (

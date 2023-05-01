@@ -6,7 +6,6 @@ import CoinListPage from './pages/CoinListPage';
 const App = () => {
   return (
     <Router>
-      <Navbar />
       <Routes>
         <Route exact path="/" element={<CoinListPage />} />
       </Routes>
