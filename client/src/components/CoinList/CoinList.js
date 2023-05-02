@@ -15,20 +15,16 @@ const CoinList = () => {
   const fetchCoins = async page => {
     try {
       const response = await axios.get(`http://localhost:5000/coins/markets?page=${page}`);
+
       const newCoins = response.data.coins;
-      if (coinsAr.length === 0) {
-        console.log('its empty');
-        setCoinsAr(newCoins);
-      } else {
-        console.log('Not empty');
-        setCoinsAr([...coinsAr, ...newCoins]);
-      }
-      console.log(apiPage);
+
+      if (coinsAr.length === 0) setCoinsAr(newCoins);
+      else setCoinsAr([...coinsAr, ...newCoins]);
+
       const startIndex = (currentPage - 1) * coinsDisplayed;
       const endIndex = startIndex + coinsDisplayed;
       setCoinsToShow(coinsAr.slice(startIndex, endIndex));
       setTotalPages(response.data.totalPages);
-      console.log('New data max' + response.data.totalPages);
     } catch (error) {
       console.error(`An error occurred while fetching the coins. ${error}`);
     }
@@ -41,7 +37,6 @@ const CoinList = () => {
   useEffect(() => {
     const startIndex = (currentPage - 1) * coinsDisplayed;
     const endIndex = startIndex + coinsDisplayed;
-    console.log(currentPage);
     setCoinsToShow(coinsAr.slice(startIndex, endIndex));
   }, [currentPage, coinsDisplayed, coinsAr]);
 
