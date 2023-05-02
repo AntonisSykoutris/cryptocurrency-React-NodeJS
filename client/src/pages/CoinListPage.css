@@ -1,0 +1,64 @@
+.container {
+  margin-top: 5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.header {
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+.header,
+.table {
+  display: inline-block;
+}
+
+.containerImg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.img {
+  max-width: 100rem;
+  height: auto;
+}
+
+/*******************************/
+/* Below 2236px (Big Desktops) */
+/*******************************/
+@media (max-width: 138em) {
+  .img {
+    max-width: 70rem;
+    height: auto;
+  }
+}
+
+/*******************************/
+/* Below 1944px ( Desktops) */
+/*******************************/
+@media (max-width: 121em) {
+  .img {
+    max-width: 40rem;
+    height: auto;
+  }
+}
+
+/*******************************/
+/* Below 1426px (Landscape Tablets) */
+/*******************************/
+@media (max-width: 89em) {
+  html {
+    font-size: 56.25%;
+  }
+
+  .img {
+    height: 0;
+  }
+}

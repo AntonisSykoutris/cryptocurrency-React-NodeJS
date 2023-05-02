@@ -94,19 +94,21 @@ const CoinList = () => {
       <table className="table">
         <thead>
           <tr>
-            <td>Name</td>
-            <td>Symbol</td>
-            <td>Current Price</td>
-            <td>High 24h</td>
-            <td>Low 24h</td>
-            <td>Price change 24h</td>
+            <td className="tableCat">Name</td>
+            <td className="tableCat">Symbol</td>
+            <td className="tableCat">Current Price</td>
+            <td className="tableCat">High 24h</td>
+            <td className="tableCat">Low 24h</td>
+            <td className="tableCat">Price change 24h</td>
           </tr>
         </thead>
         <tbody>
           {coins?.map(coin => (
             <tr key={coin?.id}>
               <td>
-                <Link to={`/coins/${coin?.id}`}>{coin?.name}</Link>
+                <Link to={`/coins/${coin?.id}`} className="coinLink">
+                  {coin?.name}
+                </Link>
               </td>
               <td>{coin?.symbol.toUpperCase()}</td>
               <td>${coin?.currentPrice.toLocaleString()}</td>
