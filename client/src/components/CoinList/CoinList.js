@@ -106,8 +106,8 @@ const CoinList = () => {
           {coins?.map(coin => (
             <tr key={coin?.id}>
               <td>
-                <Link to={`/coins/${coin?.id}`} className="coinLink">
-                  {coin?.name}
+                <Link to={`/coins/${coin.id}`} className="coinLink">
+                  {coin.name}
                 </Link>
               </td>
               <td>{coin?.symbol.toUpperCase()}</td>

@@ -1,36 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import './CoinDetails.css';
 
 const CoinDetails = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState(null);
 
-  // useEffect(() => {
-  //   const fetchCoin = async () => {
-  //     const { data } = await axios.get(`http://localhost:5000/coins/${id}`);
-  //     setCoin(data);
-  //   };
-  //   fetchCoin();
-  // }, [id]);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/coins/${id}`)
+      .then(response => {
+        setCoin(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, [id]);
 
-  // if (!coin) return <div>Loading...</div>;
+  if (!coin) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="container">
-      <h2>aaaaaaaaaaaaaaaaaaaaaaa</h2>
-      {/* <div>Current Price: ${coin.currentPrice.toLocaleString()}</div>
-      <h1>{coin.name}</h1>
-      <div>Price Change 24h: {coin.priceChangePercentage24h.toFixed(2)}%</div>
-      <div>Price Change 7d: {coin.priceChangePercentage7d.toFixed(2)}%</div>
-      <div>Price Change 14d: {coin.priceChangePercentage14d.toFixed(2)}%</div>
-      <div>Price Change 30d: {coin.priceChangePercentage30d.toFixed(2)}%</div>
-      <div>Price Change 60d: {coin.priceChangePercentage60d.toFixed(2)}%</div>
-      <div>Price Change 200d: {coin.priceChangePercentage200d.toFixed(2)}%</div>
-      <div>Price Change 1y: {coin.priceChangePercentage1y.toFixed(2)}%</div>
-      <div>24h High: ${coin.high24h.toLocaleString()}</div>
-      <div>24h Low: ${coin.low24h.toLocaleString()}</div> */}
+      <h1 className="header">{coin.name}</h1>
+      <p className="description">{coin.description}</p>
+      <table className="table">
+        <thead>
+          <tr>
+            <td className="tableCat">Current Price</td>
+            <td className="tableCat">High 24h</td>
+            <td className="tableCat">Low 24h</td>
+            <td className="tableCat">Price change 24h</td>
+            <td className="tableCat">Price change 7d</td>
+            <td className="tableCat">Price change 14d</td>
+            <td className="tableCat">Price change 30d</td>
+            <td className="tableCat">Price change 60d</td>
+            <td className="tableCat">Price change 200d</td>
+            <td className="tableCat">Price change 1y</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{coin.currentPrice.toLocaleString()}</td>
+            <td>${coin.high24h.toLocaleString()}</td>
+            <td>${coin.low24h.toLocaleString()}</td>
+            <td>{coin.priceChangePercentage24h.toFixed(2)}%</td>
+            <td>{coin.priceChangePercentage7d.toFixed(2)}%</td>
+            <td>{coin.priceChangePercentage14d.toFixed(2)}%</td>
+            <td>{coin.priceChangePercentage30d.toFixed(2)}%</td>
+            <td>{coin.priceChangePercentage60d.toFixed(2)}%</td>
+            <td>{coin.priceChangePercentage200d.toFixed(2)}%</td>
+            <td>{coin.priceChangePercentage1y.toFixed(2)}%</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };

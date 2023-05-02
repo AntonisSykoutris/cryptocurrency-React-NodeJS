@@ -10,7 +10,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route exact path="/" element={<CoinListPage />} />
-        <Route exact path="/coins/:id" component={CoinDetailsPage} />
+        <Route exact path="/coins/:id" element={<CoinDetailsPage />} />
       </Routes>
     </Router>
   );
