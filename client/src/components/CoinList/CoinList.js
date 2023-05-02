@@ -12,8 +12,12 @@ const CoinList = () => {
   const [coinsDisplayed, setCoinsDisplayed] = useState(15);
   const [totalPages, setTotalPages] = useState(0);
 
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
   const fetchCoins = async page => {
     try {
+      await delay(5000);
+
       const response = await axios.get(`http://localhost:5000/coins/markets?page=${page}`);
 
       const newCoins = response.data.coins;
@@ -131,15 +135,15 @@ const CoinList = () => {
           {coinsToShow?.map(coin => (
             <tr key={coin?.id}>
               <td>
-                <Link to={`/coins/${coin.id}`} className="coinLink">
-                  {coin.name}
+                <Link to={`/coins/${coin?.id}`} className="coinLink">
+                  {coin?.name}
                 </Link>
               </td>
-              <td>{coin?.symbol.toUpperCase()}</td>
-              <td>${coin?.currentPrice.toLocaleString()}</td>
-              <td>${coin?.high24h.toLocaleString()}</td>
-              <td>${coin?.low24h.toLocaleString()}</td>
-              <td>{coin?.priceChangePercentage24h.toFixed(2)}%</td>
+              <td>{coin?.symbol?.toUpperCase()}</td>
+              <td>${coin?.currentPrice?.toLocaleString()}</td>
+              <td>${coin?.high24h?.toLocaleString()}</td>
+              <td>${coin?.low24h?.toLocaleString()}</td>
+              <td>{coin?.priceChangePercentage24h?.toFixed(2)}%</td>
             </tr>
           ))}
         </tbody>

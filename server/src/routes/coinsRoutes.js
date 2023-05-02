@@ -21,6 +21,7 @@ router.get('/markets', async (req, res) => {
 
   const totalCoins = 250 * page;
   const totalPages = Math.ceil(totalCoins / 15);
+  console.log('Server says that total coins are:' + totalCoins);
   res.json({ coins, totalPages });
 });
 
