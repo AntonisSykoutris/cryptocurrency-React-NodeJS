@@ -7,9 +7,9 @@ router.get('/markets', async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const perPage = parseInt(req.query.perPage) || 15;
   const skip = (page - 1) * perPage;
-  // const { data } = await axios.get(
-  //   `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=${perPage}&page=${page}`
-  // );
+  const { data } = await axios.get(
+    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=${perPage}&page=${page}`
+  );
 
   const dummyData = [
     {
@@ -132,7 +132,7 @@ router.get('/markets', async (req, res) => {
     // Add more objects here for additional coins
   ];
 
-  const coins = dummyData.map(coin => ({
+  const coins = data.map(coin => ({
     id: coin.id,
     name: coin.name,
     symbol: coin.symbol,
