@@ -9,7 +9,7 @@ const CoinListPage = () => {
       <h1 className="header">Cryptocurrency Prices</h1>
       <CoinList className="table" />
       <div className="containerImg">
-        <img class="img" src={landingImg} alt="crypto flowers" />
+        <img className="img" src={landingImg} alt="crypto flowers" />
       </div>
     </div>
   );
