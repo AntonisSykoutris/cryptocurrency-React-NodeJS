@@ -1,4 +1,4 @@
-# Cryptocurrency React-NodeJS Application ( Crypto Vault )
+# Cryptocurrency React-NodeJS Application (Crypto Vault)
 
 This repository contains a full-stack cryptocurrency application built using React and NodeJS. The application allows users to search for cryptocurrency prices and view historical price data.
 
