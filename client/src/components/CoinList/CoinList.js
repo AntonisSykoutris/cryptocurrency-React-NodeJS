@@ -8,34 +8,48 @@ const CoinList = () => {
   const [coinsAr, setCoinsAr] = useState([]);
   const [coinsToShow, setCoinsToShow] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [apiPage, setApiPage] = useState(1);
+  const [apiPage, setApiPage] = useState(Number(localStorage.getItem('apiPage')) || 1);
   const [coinsDisplayed, setCoinsDisplayed] = useState(15);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(Number(localStorage.getItem('totalPages')) || 0);
 
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
   const fetchCoins = async page => {
     try {
-      await delay(5000);
-
+      await delay(2000);
       const response = await axios.get(`http://localhost:5000/coins/markets?page=${page}`);
 
       const newCoins = response.data.coins;
 
-      if (coinsAr.length === 0) setCoinsAr(newCoins);
-      else setCoinsAr([...coinsAr, ...newCoins]);
+      let updatedCoins = [];
+
+      if (coinsAr.length === 0) {
+        updatedCoins = newCoins;
+      } else {
+        updatedCoins = [...coinsAr, ...newCoins];
+      }
+
+      localStorage.setItem('coinsAr', JSON.stringify(updatedCoins));
 
       const startIndex = (currentPage - 1) * coinsDisplayed;
       const endIndex = startIndex + coinsDisplayed;
-      setCoinsToShow(coinsAr.slice(startIndex, endIndex));
+      setCoinsToShow(updatedCoins.slice(startIndex, endIndex));
       setTotalPages(response.data.totalPages);
+      localStorage.setItem('totalPages', response.data.totalPages);
+      setCoinsAr(updatedCoins);
     } catch (error) {
       console.error(`An error occurred while fetching the coins. ${error}`);
     }
   };
 
   useEffect(() => {
-    if (coinsAr.length === 0) fetchCoins(apiPage);
+    const storedCoins = localStorage.getItem('coinsAr');
+    if (storedCoins) {
+      setCoinsAr(JSON.parse(storedCoins));
+      renderPageNumbers();
+    } else {
+      fetchCoins(apiPage);
+    }
   }, []);
 
   useEffect(() => {
@@ -50,6 +64,7 @@ const CoinList = () => {
     setCurrentPage(pageNumber);
     setCoinsToShow(coinsAr.slice(startIndex, endIndex));
     if (pageNumber === totalPages) {
+      localStorage.setItem('apiPage', apiPage + 1);
       setApiPage(apiPage + 1);
       fetchCoins(apiPage + 1);
     }
