@@ -3,7 +3,9 @@ const axios = require('axios');
 
 const router = express.Router();
 
+// Handle GET requests to /markets endpoint
 router.get('/markets', async (req, res) => {
+  // Get the "page" query parameter or default to page 1
   const page = parseInt(req.query.page) || 1;
   const { data } = await axios.get(
     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=${page}&sparkline=false&locale=en`
@@ -19,12 +21,14 @@ router.get('/markets', async (req, res) => {
     priceChangePercentage24h: coin.price_change_percentage_24h,
   }));
 
+  // Calculate the total number of coins and pages
   const totalCoins = 250 * page;
   const totalPages = Math.ceil(totalCoins / 15);
   console.log('Server says that total coins are:' + totalCoins);
   res.json({ coins, totalPages });
 });
 
+// Handle GET requests to /:id endpoint
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   const { data } = await axios.get(

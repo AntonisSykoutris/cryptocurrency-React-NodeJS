@@ -5,6 +5,7 @@ const coinsRoutes = require('./routes/coinsRoutes');
 const app = express();
 const port = 5000;
 
+// Enable Cross-Origin Resource Sharing (CORS)
 app.use(cors());
 app.use(express.json());
 
